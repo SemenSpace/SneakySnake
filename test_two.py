@@ -143,7 +143,7 @@ if __name__ == '__main__':
     snake_image = load_image('snake.png')
     tile_images = {
         'wall': load_image('wall.png'),
-        'snake': load_image('pov.png')
+        'empty': load_image('pov.png')
     }
     tile_width = tile_height = 25
     all_sprites = pygame.sprite.Group()
@@ -160,7 +160,7 @@ if __name__ == '__main__':
     running = True
     cont = False
 
-    new_player, level_x, level_y = generate_level(load_level('level.txt'))
+    new_player, level_x, level_y = generate_level(load_level('level_1.txt'))
 
     start_screen()
     while running:

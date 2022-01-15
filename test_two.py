@@ -5,20 +5,21 @@ import sys
 
 
 class Tile(pygame.sprite.Sprite):
-    def __init__(self, tile_type, pos_x, pos_y):
+    def __init__(self, tile_type, x_kon, y_kon):
         super().__init__(tiles_group, all_sprites)
         self.image = tile_images[tile_type]
         self.rect = self.image.get_rect().move(
-            tile_width * pos_x, tile_height * pos_y)
+            tile_width * x_kon, tile_height * y_kon)
         if tile_type == 'wall':
             wall_group.add(self)
 
 
 class Snake(pygame.sprite.Sprite):
-    def __init__(self, pos_x, pos_y):
+    def __init__(self, x_kon, y_kon):
         super().__init__(snake_group, all_sprites)
+        self.kon = True
         self.image = snake_image
-        self.rect = self.image.get_rect().move(tile_width * pos_x + 15, tile_height * pos_y + 5)
+        self.rect = self.image.get_rect().move(tile_width * x_kon + 15, tile_height * y_kon + 5)
 
     def update(self, event):
         global running
@@ -40,6 +41,15 @@ class Snake(pygame.sprite.Sprite):
         if event.key == pygame.K_LEFT:
             xs = -sn_pos
             ys = 0
+
+        if ys < 0 and xs == 0:
+            self.rect.y -= 5
+        if ys > 0 and xs == 0:
+            self.rect.y += 5
+        if xs > 0 and ys == 0:
+            self.rect.x += 5
+        if xs < 0 and ys == 0:
+            self.rect.x -= 5
         if pygame.sprite.spritecollideany(self, wall_group):
             cont = True
 
@@ -125,9 +135,6 @@ def message(msg, color):
     screen.blit(mesg, [WIDTH / 6, HEIGHT / 3])
 
 
-def move(x_kon, y_kon):
-    snake_image.get_rect().move(tile_width * x_kon + 15, tile_height * y_kon + 5)
-
 WIDTH = 700
 HEIGHT = 500
 sn_pos = 1
@@ -140,14 +147,17 @@ food_y = round(random.randrange(0, HEIGHT - sn_pos) / 10.0) * 10.0
 fons = ['fon_1.jpg', 'fon_2.png', 'fon_3.jpg']
 fon_game = pygame.transform.scale(load_image(random.choice(fons)), (WIDTH, HEIGHT))
 dead_screen = pygame.transform.scale(load_image('dead_screen.jpg'), (WIDTH, HEIGHT))
-FPS = 60
+FPS = 4
 
 x1 = WIDTH / 2
 y1 = HEIGHT / 2
 
+
+
+tile_width = tile_height = 10
+
 xs = 0
 ys = 0
-x_kon, y_kon = 33, 26
 
 running = True
 cont = False
@@ -157,9 +167,9 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption('SneakySnake')
 
+    x_kon, y_kon = 35, 25
     clock = pygame.time.Clock()
     player = None
-
 
     font_style = pygame.font.SysFont("bahnschrift", 25)
     score_font = pygame.font.SysFont('ArialBlack', 20)
@@ -168,21 +178,11 @@ if __name__ == '__main__':
         'wall': load_image('wall.png'),
         'empty': load_image('pov.png')
     }
-    snake_image = load_image('snake.jpg')
+    snake_image = load_image('wall.png')
 
-    tile_width = tile_height = 10
     all_sprites = pygame.sprite.Group()
     tiles_group = pygame.sprite.Group()
-
     snake_group = pygame.sprite.Group()
-    """snakes = pygame.sprite.Sprite()
-    snakes.image = load_image("snake.jpg")
-    snakes.rect = snakes.image.get_rect()
-    all_sprites.add(snakes)
-    snakes.rect.x = sn_pos
-    snakes.rect.y = sn_pos
-    all_sprites.draw(screen)"""
-
     wall_group = pygame.sprite.Group()
     start_screen()
 
@@ -193,7 +193,6 @@ if __name__ == '__main__':
             screen.blit(dead_screen, (0, 0))
             Your_score(sn_len - 1)
             pygame.display.update()
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         running = False
@@ -204,15 +203,11 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.KEYDOWN:
                 all_sprites.update(event)
-                snake_image.get_rect().move(tile_width * x_kon + 15, tile_height * y_kon + 5)
-        
         #screen.blit(fon_game, (0, 0))
         #pygame.draw.rect(screen, (255, 0, 0), [food_x, food_y, sn_pos, sn_pos])
         ##all_sprites.draw(screen)
-        x_kon = x_kon + xs
-        y_kon = y_kon + ys
-
-        sn_head = []
+        ##print(x_kon, y_kon)
+        """sn_head = []
         sn_head.append(x1)
         sn_head.append(y1)
         sn_telo.append(sn_head)
@@ -221,10 +216,14 @@ if __name__ == '__main__':
 
         for x in sn_telo[:-1]:
             if x == sn_head:
-                cont = True
+                cont = True"""
 
         ##snake(sn_pos, sn_telo)
-        Your_score(sn_len - 1)
+        ##Your_score(sn_len - 1)
+
+        x_kon += xs
+        y_kon += ys
+        print(x_kon, y_kon)
 
         if x1 == food_x and y1 == food_y:
             food_x = round(random.randrange(0, WIDTH - sn_pos) / 10.0) * 10.0

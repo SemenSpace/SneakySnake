@@ -1,11 +1,11 @@
-﻿import pygame
+import pygame
 import random
 import os
 import sys
 
 
 def load_image(name, colorkey=None):
-    fullname = os.path.join('data', name)
+    fullname = os.path.join('D:/SneakySnake/', name)
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")
         sys.exit()
@@ -26,7 +26,7 @@ def last_win(_len):
 
 def start_screen():
 
-    with open('data/score.txt', mode="r", encoding='utf8') as lol:
+    with open('D:/SneakySnake/score.txt', mode="r", encoding='utf8') as lol:
             scoree = lol.read()
     intro_text = [f'Ваш максимальный рекорд {int(scoree) - 1}', "Для выбора режима - введите его номер", "1 - Default Mode",
                   "2 - В разработке",

@@ -1,0 +1,79 @@
+{
+  "mode_def": [
+    {
+      "w": 70,
+      "h": 50,
+      "snake": 1,
+      "speed": 18,
+      "bonus": 0,
+      "tp": 0,
+      "apple": 1,
+      "zone": 0
+    }
+  ],
+
+  "mode_hard": [
+    {
+      "w": 55,
+      "h": 43,
+      "snake": 1,
+      "speed": 26,
+      "bonus": 0,
+      "tp": 0,
+      "apple": 1,
+      "zone": 0
+    }
+  ],
+
+  "mode_tp": [
+    {
+      "w": 70,
+      "h": 50,
+      "snake": 1,
+      "speed": 18,
+      "bonus": 0,
+      "tp": 1,
+      "apple": 1,
+      "zone": 0
+    }
+  ],
+
+  "mode_bonus": [
+    {
+      "w": 70,
+      "h": 50,
+      "snake": 1,
+      "speed": 18,
+      "bonus": 1,
+      "tp": 0,
+      "apple": 1,
+      "zone": 0
+    }
+  ],
+
+  "mode_double": [
+    {
+      "w": 70,
+      "h": 50,
+      "snake": 2,
+      "speed": 18,
+      "bonus": 0,
+      "tp": 0,
+      "apple": 1,
+      "zone": 0
+    }
+  ],
+
+  "mode_fight": [
+    {
+      "w": 60,
+      "h": 45,
+      "snake": 2,
+      "speed": 18,
+      "bonus": 0,
+      "tp": 0,
+      "apple": 0,
+      "zone": 1
+    }
+  ]
+}
